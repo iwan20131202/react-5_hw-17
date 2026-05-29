@@ -1,36 +1,24 @@
-import { useState } from "react";
-import { nanoid } from "nanoid";
-
+import { useState, useRef } from "react";
+import { useContacts } from "../ContactsContext/ContactsContext.js";
 import { Form, Label, Input, Button } from "./ContactForm.styled.js";
-
 import { IoPersonAddOutline } from "react-icons/io5";
 
-export const ContactForm = ({ contacts, setContacts }) => {
+export const ContactForm = () => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
+  const nameInputRef = useRef(null);
+  const { addContact } = useContacts();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const exists = contacts.some(
-      (contact) => contact.name.toLowerCase() === name.toLowerCase(),
-    );
+    const isSuccess = addContact(name, number);
 
-    if (exists) {
-      alert("Контакт вже існує!");
-      return;
+    if (isSuccess) {
+      setName("");
+      setNumber("");
+      nameInputRef.current?.focus();
     }
-
-    const newContact = {
-      id: nanoid(),
-      name,
-      number,
-    };
-
-    setContacts((prev) => [newContact, ...prev]);
-
-    setName("");
-    setNumber("");
   };
 
   return (
@@ -38,6 +26,7 @@ export const ContactForm = ({ contacts, setContacts }) => {
       <Label>
         Name
         <Input
+          ref={nameInputRef}
           type="text"
           name="name"
           value={name}

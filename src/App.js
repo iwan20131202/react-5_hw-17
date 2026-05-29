@@ -1,49 +1,28 @@
 import "./App.css";
-
-import { useState, useEffect } from "react";
-
+import { ContactsProvider } from "./components/ContactsContext/ContactsContext.js";
 import { ContactForm } from "./components/ContactForm/ContactForm.js";
 import { ContactList } from "./components/ContactList/ContactList.js";
 import { Filter } from "./components/Filter/Filter.js";
-
 import { AppWrapper, Title, Subtitle } from "./App.styled.js";
-
 import { FaSquarePhone } from "react-icons/fa6";
 
 function App() {
-  const [contacts, setContacts] = useState(() => {
-    const saved = localStorage.getItem("contacts");
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  const [filter, setFilter] = useState("");
-
-  useEffect(() => {
-    localStorage.setItem("contacts", JSON.stringify(contacts));
-  }, [contacts]);
-
-  const deleteContact = (id) => {
-    setContacts((previous) => previous.filter((contact) => contact.id !== id));
-  };
-
   return (
-    <AppWrapper>
-      <Title>
-        Phonebook <FaSquarePhone />
-      </Title>
+    <ContactsProvider>
+      <AppWrapper>
+        <Title>
+          Phonebook <FaSquarePhone />
+        </Title>
 
-      <ContactForm contacts={contacts} setContacts={setContacts} />
+        <ContactForm />
 
-      <Subtitle>Contacts</Subtitle>
+        <Subtitle>Contacts</Subtitle>
 
-      <Filter filter={filter} setFilter={setFilter} />
+        <Filter />
 
-      <ContactList
-        contacts={contacts}
-        filter={filter}
-        onDelete={deleteContact}
-      />
-    </AppWrapper>
+        <ContactList />
+      </AppWrapper>
+    </ContactsProvider>
   );
 }
 
