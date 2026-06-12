@@ -4,25 +4,18 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 18px;
-
   padding: 28px;
-
   background: linear-gradient(145deg, #ffffff, #f8faff);
-
   border: 1px solid #eef2ff;
   border-radius: 24px;
-
   box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.06),
     0 4px 10px rgba(0, 0, 0, 0.04);
-
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease;
-
   &:hover {
     transform: translateY(-2px);
-
     box-shadow:
       0 16px 40px rgba(99, 102, 241, 0.08),
       0 6px 16px rgba(0, 0, 0, 0.05);
@@ -33,11 +26,9 @@ export const Label = styled.label`
   display: flex;
   flex-direction: column;
   gap: 8px;
-
   font-family: "DM Sans", sans-serif;
   font-size: 15px;
   font-weight: 600;
-
   color: #374151;
   letter-spacing: 0.2px;
 `;
